@@ -2,65 +2,57 @@ require ("Line")
 function love.load()
 	love.graphics.setCaption("Untangle")
 
-	p1 = createBox(280,230)
-	p2 = createBox(320,400)
+	points = {}
+	points[1] = createBox(280,230)
+	points[2] = createBox(320,400)
 
-	line1 = createLine(p1,p2)
+	line1 = createLine(points[1],points[2])
 
 end
 
 function love.mousepressed(xm, ym, button)
 	-- Checks which button was pressed.
-	if button == "l" then
-		if (isInBox(xm,ym,p1)) then
-			p1.hit = true
-		end
-		p1.ox = p1.x - xm
-		p1.oy = p1.y -ym
-	end
 
 	if button == "l" then
-		if (isInBox(xm,ym,p2)) then
-			p2.hit = true
+		for i = 1, #points do
+			local tmp = points[i]
+			if (isInBox(xm,ym,tmp)) then
+				tmp.hit = true
+			end
+			tmp.ox = tmp.x - xm
+			tmp.oy = tmp.y -ym
 		end
-		p2.ox = p2.x - xm
-		p2.oy = p2.y -ym
 	end
-
 end
 
 function love.mousereleased(xm, ym, button)
 	if (button == "l" ) then
-		p1.hit = false
-		p2.hit = false
+		for i = 1, #points do
+			local tmp = points[i]
+			tmp.hit = false
+		end
+		-- p1.hit = false
+		-- p2.hit = false
 	end
 end
 
 function love.update(dt)
-	if (p1.hit == true) then
-		local tempx = p1.x
-		local tempy = p1.y 
 
-		p1.x = p1.ox + love.mouse.getX()
-		p1.y = p1.oy + love.mouse.getY()
-		if(isBoxInBox(p1,p2)) then
-			p1.x = tempx
-			p1.y = tempy
+	for i = 1, #points do
+		local tmp = points[i]
+		if (tmp.hit == true) then
+			local tempx = tmp.x
+			local tempy = tmp.y 
+
+			tmp.x = tmp.ox + love.mouse.getX()
+			tmp.y = tmp.oy + love.mouse.getY()
+
+			if(isBoxInBox(points[1],points[2])) then
+				tmp.x = tempx
+				tmp.y = tempy
+			end
 		end
 	end
-
-	if (p2.hit == true) then
-		local tempx = p2.x
-		local tempy = p2.y 
-
-		p2.x = p2.ox + love.mouse.getX()
-		p2.y = p2.oy + love.mouse.getY()
-		if(isBoxInBox(p2,p1)) then
-			p2.x = tempx
-			p2.y = tempy
-		end
-	end
-
 end
 
 function drawPoint(point)
@@ -88,9 +80,11 @@ function love.draw()
 	love.graphics.circle("fill", 400, 320, 200, 50 )
 
 	drawLine(line1)
-	drawPoint(p1)
-	drawPoint(p2)
-
+	
+	for i = 1, #points do
+		drawPoint(points[i])
+	end
+	
 	local m,n = getLinearEquation(line1)
 	local text= "m = " .. m ..", n = " .. n
 

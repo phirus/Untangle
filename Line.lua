@@ -1,4 +1,5 @@
 require("Box")
+require("Basic")
 
 function createLine(head, tail)
 	local Line = {}
@@ -28,5 +29,7 @@ function getIntersection(Line_1,Line_2)
 end
 
 function doLinesIntersect(Line_1,Line_2)
-	
+	local x_inter = getIntersection(Line_1,Line_2)
+    return ( isBetwenn(x_inter,Line_1.head.x,Line_1.tail.x) and isBetwenn(x_inter,Line_2.head.x,Line_2.tail.x))	
 end
+
