@@ -1,4 +1,4 @@
-require("Box.lua")
+require("Box")
 
 function createLine(head, tail)
 	local Line = {}

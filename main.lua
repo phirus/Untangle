@@ -1,4 +1,4 @@
-require("Line.lua")
+require ("Line") 
 function love.load()
 	love.graphics.setCaption("Untangle")
 
