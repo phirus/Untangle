@@ -1,56 +1,13 @@
-require("Point.lua")
+require("Line.lua")
 function love.load()
-	love.graphics.setCaption("drag n drop")
+	love.graphics.setCaption("Untangle")
 
-	p1 = {}
-	p2 = {}
+	p1 = createBox(280,230)
+	p2 = createBox(320,400)
 
-	p1.x = 280
-	p1.y = 230
-	p1.w = 50
-	p1.hit = false
-	p1.ox = 0
-	p1.oy = 0
-
-	p2.x = 320
-	p2.y = 400
-	p2.w = 50
-	p2.hit = false
-
-	x_m = 500
-	y_m = 200
-
-	hit = false
-
-	line1 = {}
-	line1.head = p1
-	line1.tail = p2
-	line1.hit = false
+	line1 = createLine(p1,p2)
 
 end
-
--- function isInBox(x,y,box)
--- 	return (x >= box.x -box.w/2 and x <= (box.x + box.w/2) and  y >= box.y -box.w/2 and y <= (box.y + box.w/2) )
--- end
-
--- function getCorners(box)
--- 	local nw = {}
--- 	local ne = {}
--- 	local sw = {}
--- 	local se = {}
--- 	nw.x , nw.y = box.x - box.w/2 , box.y - box.w/2
--- 	ne.x , ne.y = box.x + box.w/2 , box.y - box.w/2
--- 	sw.x , sw.y = box.x - box.w/2 , box.y + box.w/2
--- 	se.x , se.y = box.x + box.w/2 , box.y + box.w/2
-
--- 	return nw , ne , sw , se
--- end
-
--- function isBoxInBox(box_1, box_2)
--- 	local nw , ne , sw , se = getCorners(box_1)
-
--- 	return( isInBox(nw.x,nw.y,box_2) or isInBox(ne.x,ne.y,box_2) or isInBox(sw.x,sw.y,box_2) or isInBox(se.x,se.y,box_2))
--- end
 
 function love.mousepressed(xm, ym, button)
 	-- Checks which button was pressed.
@@ -133,4 +90,10 @@ function love.draw()
 	drawLine(line1)
 	drawPoint(p1)
 	drawPoint(p2)
+
+	local m,n = getLinearEquation(line1)
+	local text= "m = " .. m ..", n = " .. n
+
+	love.graphics.setColor(255, 255, 255, 255)
+	love.graphics.print(text,100,100)
 end
