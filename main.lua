@@ -6,7 +6,8 @@ function love.load()
 	points[1] = createBox(280,230)
 	points[2] = createBox(320,400)
 
-	line1 = createLine(points[1],points[2])
+	lines = {}
+	lines[1] = createLine(points[1],points[2])
 
 end
 
@@ -31,8 +32,6 @@ function love.mousereleased(xm, ym, button)
 			local tmp = points[i]
 			tmp.hit = false
 		end
-		-- p1.hit = false
-		-- p2.hit = false
 	end
 end
 
@@ -79,13 +78,15 @@ function love.draw()
 
 	love.graphics.circle("fill", 400, 320, 200, 50 )
 
-	drawLine(line1)
+	for i = 1, #lines do
+		drawLine(lines[i])
+	end
 	
 	for i = 1, #points do
 		drawPoint(points[i])
 	end
 	
-	local m,n = getLinearEquation(line1)
+	local m,n = getLinearEquation(lines[1])
 	local text= "m = " .. m ..", n = " .. n
 
 	love.graphics.setColor(255, 255, 255, 255)
