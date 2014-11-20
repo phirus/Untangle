@@ -25,11 +25,23 @@ function getIntersection(Line_1,Line_2)
 
 	local x_inter = (n2-n1)/(m1-m2)
 
-	return x
+	return x_inter
 end
 
 function doLinesIntersect(Line_1,Line_2)
 	local x_inter = getIntersection(Line_1,Line_2)
-    return ( isBetwenn(x_inter,Line_1.head.x,Line_1.tail.x) and isBetwenn(x_inter,Line_2.head.x,Line_2.tail.x))	
+    return ( isBetween(x_inter,Line_1.head.x,Line_1.tail.x) and isBetween(x_inter,Line_2.head.x,Line_2.tail.x))	
 end
 
+function isLineListIntersection(lines)
+	for i = 1, #lines do
+		local tmp = lines[i]
+		tmp.hit = false
+
+		for j = 1, #lines do
+			if (i ~= j and doLinesIntersect(tmp,lines[j])) then
+				tmp.hit = true
+			end
+		end
+	end
+end

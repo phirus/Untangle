@@ -11,6 +11,7 @@ function love.load()
 
 	lines = {}
 	lines[1] = createLine(points[1],points[2])
+	lines[2] = createLine(points[3],points[4])
 
 end
 
@@ -57,6 +58,7 @@ function love.update(dt)
 			end
 		end
 	end
+	isLineListIntersection(lines)
 end
 
 function drawPoint(point)
@@ -74,6 +76,9 @@ end
 
 function drawLine(line)
 	love.graphics.setColor(0, 255, 0, 255)
+	if(line.hit == true) then
+		love.graphics.setColor(255,0,0,255)
+	end
 	love.graphics.setLineWidth( 5 )
 	love.graphics.line(line.head.x,line.head.y,line.tail.x,line.tail.y)
 end
@@ -92,7 +97,9 @@ function love.draw()
 	end
 	
 	local m,n = getLinearEquation(lines[1])
-	local text= "m = " .. m ..", n = " .. n
+	local x = getIntersection(lines[1],lines[2])
+
+	local text= "m = " .. m ..", n = " .. n .. ", x = " .. x
 
 	love.graphics.setColor(255, 255, 255, 255)
 	love.graphics.print(text,100,100)
