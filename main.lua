@@ -5,6 +5,9 @@ function love.load()
 	points = {}
 	points[1] = createBox(280,230)
 	points[2] = createBox(320,400)
+	points[3] = createBox(200,400)
+	points[4] = createBox(320,150)
+	points[5] = createBox(400,280)
 
 	lines = {}
 	lines[1] = createLine(points[1],points[2])
@@ -46,9 +49,11 @@ function love.update(dt)
 			tmp.x = tmp.ox + love.mouse.getX()
 			tmp.y = tmp.oy + love.mouse.getY()
 
-			if(isBoxInBox(points[1],points[2])) then
-				tmp.x = tempx
-				tmp.y = tempy
+			for j = 1, #points do
+				if(i ~= j and isBoxInBox(points[i],points[j])) then
+					tmp.x = tempx
+					tmp.y = tempy
+				end
 			end
 		end
 	end
