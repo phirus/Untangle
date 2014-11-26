@@ -55,3 +55,15 @@ function isLineListIntersection(lines)
 		end
 	end
 end
+
+function createClosed(boxes)
+	lines = {}
+
+	if (#boxes) > 1 then
+		for i = 2, #boxes do
+			lines[i-1] = createLine(boxes[i-1],boxes[i])
+		end
+		lines[#boxes] = createLine(boxes[#boxes],boxes[1])
+	end
+	return lines
+end

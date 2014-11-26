@@ -9,12 +9,7 @@ function love.load()
 	points[4] = createBox(320,150)
 	points[5] = createBox(400,280)
 
-	lines = {}
-	lines[1] = createLine(points[1],points[2])
-	lines[2] = createLine(points[3],points[4])
-	lines[3] = createLine(points[2],points[3])
-	lines[4] = createLine(points[4],points[5])
-	lines[5] = createLine(points[5],points[1])	
+	lines = createClosed(points)	
 end
 
 function love.mousepressed(xm, ym, button)
