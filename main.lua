@@ -1,13 +1,13 @@
 require ("Line") 
 function love.load()
 	love.graphics.setCaption("Untangle")
+	local display_width = love.graphics.getWidth()
+	local display_height = love.graphics.getHeight()
 
 	points = {}
-	points[1] = createBox(280,230)
-	points[2] = createBox(320,400)
-	points[3] = createBox(200,400)
-	points[4] = createBox(320,150)
-	points[5] = createBox(400,280)
+	for i = 1, 10 do
+		points[i] = placeBox(display_width,display_height)
+	end
 
 	lines = createClosed(points)	
 end
@@ -96,7 +96,10 @@ function love.draw()
 	local m,n = getLinearEquation(lines[1])
 	local x = getIntersection(lines[1],lines[2])
 
-	local text= "m = " .. m ..", n = " .. n .. ", x = " .. x
+	local display_width = love.graphics.getWidth()
+	local display_height = love.graphics.getHeight()
+
+	local text= "m = " .. m ..", n = " .. n .. ", x = " .. x .. "\nDisplay: x = " .. display_width .. " y = " .. display_height
 
 	love.graphics.setColor(255, 255, 255, 255)
 	love.graphics.print(text,100,100)

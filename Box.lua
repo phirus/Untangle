@@ -32,3 +32,10 @@ function isBoxInBox(Box_1, Box_2)
 
 	return( isInBox(nw.x,nw.y,Box_2) or isInBox(ne.x,ne.y,Box_2) or isInBox(sw.x,sw.y,Box_2) or isInBox(se.x,se.y,Box_2))
 end
+
+function placeBox(width,height)
+	local x = math.random() * width
+	local y = math.random() * height
+	local box = createBox(x,y,50)
+	return box
+end
