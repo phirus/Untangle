@@ -28,9 +28,19 @@ function getIntersection(Line_1,Line_2)
 	return x_inter
 end
 
+function isSharedPoint(Line_1,Line_2)
+	local shared = false
+	if(Line_1.head == Line_2.head or Line_1.head == Line_2.tail or Line_1.tail == Line_2.head or Line_1.tail == Line_2.tail) then
+		shared = true
+	end
+	return shared
+end
+
+
 function doLinesIntersect(Line_1,Line_2)
 	local x_inter = getIntersection(Line_1,Line_2)
-    return ( isBetween(x_inter,Line_1.head.x,Line_1.tail.x) and isBetween(x_inter,Line_2.head.x,Line_2.tail.x))	
+
+    return ( isBetween(x_inter,Line_1.head.x,Line_1.tail.x) and isBetween(x_inter,Line_2.head.x,Line_2.tail.x) and (not isSharedPoint(Line_1,Line_2)))	
 end
 
 function isLineListIntersection(lines)
